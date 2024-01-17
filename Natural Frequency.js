@@ -14,7 +14,7 @@ const PpM = 100; // number of pixels per meter
 const CoilRadius = 30; // in pixels
 const SpringFixedX = 1; // in meter
 const SpringFixedY = 3.5; // in meter
-const WindForceAmplitude = 2; // in N
+const WindForceAmplitude = 4; // in N
 
 // system parameters and object
 let block;
