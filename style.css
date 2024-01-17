@@ -124,7 +124,3 @@ p {
 .onoffswitch-checkbox:checked + .onoffswitch-label:before {
     right: 0px;
 }
-
-input {
-    accent-color: #DDF2FF;
-}
