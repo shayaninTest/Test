@@ -1,6 +1,8 @@
 'use strict';
 let canvas = document.getElementById('canvas');
 let context = canvas.getContext('2d');
+let canvasTop = document.getElementById('canvasTop');
+let contextTop = canvasTop.getContext('2d');
 let SpringStiffnessSlider = document.getElementById('SpringStiffnessSlider');
 let MassSlider = document.getElementById('MassSlider');
 let WindFrequencySlider = document.getElementById('WindFrequencySlider');
@@ -173,12 +175,8 @@ function DrawBlock(x, y) {
     context.fill();
 }
 
-function DrawNatFreq(text) {
-    context.font = "30px Arial";
-    context.fillStyle = '#0071BC';
-    context.fillText(text.toFixed(2) + " Hz", 448, 645);
-
-    let NatPointerX = 837 + (952 - 837)*(text - 0.2);
+function DrawNatFreqLine() {
+    let NatPointerX = 837 + (952 - 837)*(NatFreq - 0.2);
 
     context.strokeStyle = '#DDF2FF';
     context.lineCap = 'butt';
@@ -207,6 +205,18 @@ function DrawNatFreq(text) {
     context.fill();
 }
 
+function DrawValue() {
+    contextTop.font = "30px Arial";
+    contextTop.fillStyle = '#0071BC';
+    contextTop.fillText(NatFreq.toFixed(2) + " Hz", 448, 645);
+
+    contextTop.font = "16px Arial";
+    contextTop.fillStyle = '#000000';
+    contextTop.fillText(parseFloat(WindFrequencySlider.value).toFixed(2) + " Hz", 903, 450);
+    contextTop.fillText(SpringStiffnessSlider.value + " N/m", 96, 609);
+    contextTop.fillText(parseFloat(MassSlider.value).toFixed(1) + " kg", 92, 647);
+}
+
 function OnEachStep() {
     if (isDragging == false) {
         let dt = new Date().getTime()/1000 - ti;
@@ -231,9 +241,11 @@ function OnEachStep() {
         NatFreq = Math.sqrt(SpringStiffnessSlider.value/MassSlider.value)/(2*Math.PI);
     
         context.clearRect(0, 0, canvas.width, canvas.height);
+        contextTop.clearRect(0, 0, canvas.width, canvas.height);
         spring.DrawSpring();
         DrawBlock(block.x, SpringFixedY);
-        DrawNatFreq(NatFreq);
+        DrawNatFreqLine();
+        DrawValue();
 
         // check for collision, the block will bounce with half the velocity if collision happened (75% reduction of KE)
         if (block.x - BlockSize/2 < 1) {
@@ -257,9 +269,9 @@ function animFrame() {
 }
 
 function init() {
-    canvas.addEventListener('pointerdown', function () {
-        canvas.addEventListener('pointermove', onDrag);
-        canvas.addEventListener('pointerup', onDrop);
+    canvasTop.addEventListener('pointerdown', function () {
+        canvasTop.addEventListener('pointermove', onDrag);
+        canvasTop.addEventListener('pointerup', onDrop);
         });
 
     block = new Particle(SpringFixedX + L0, 0, MassSlider.value); // start at equilibrium position
@@ -270,18 +282,6 @@ function init() {
 }
 
 window.onload = init;
-
-function showSpringStiffness() {
-    SpringStiffnessReadout.innerHTML = SpringStiffnessSlider.value;
-}
-
-function showMass() {
-    MassReadout.innerHTML = parseFloat(MassSlider.value).toFixed(1);
-}
-
-function showWindFrequency() {
-    WindFrequencyReadout.innerHTML = parseFloat(WindFrequencySlider.value).toFixed(2);
-}
 
 function onDrag(evt) {
     isDragging = true;
@@ -298,9 +298,11 @@ function onDrag(evt) {
     spring.UpdateSpring(SpringFixedX, block.x);
     
     context.clearRect(0, 0, canvas.width, canvas.height);
+    contextTop.clearRect(0, 0, canvas.width, canvas.height);
     spring.DrawSpring();
     DrawBlock(block.x, SpringFixedY);
-    DrawNatFreq(NatFreq);
+    DrawNatFreqLine();
+    DrawValue();
     
     if (bloweronoffswitch.checked == true) {
         windForce.DrawWind();
@@ -311,8 +313,8 @@ function onDrop() {
     isDragging = false;
     ti = new Date().getTime()/1000;
     block.vx = 0;
-    canvas.removeEventListener('pointermove', onDrag);
-    canvas.removeEventListener('pointerup', onDrop);
+    canvasTop.removeEventListener('pointermove', onDrag);
+    canvasTop.removeEventListener('pointerup', onDrop);
     }
 
 // convert window x coordinate to canvas x coordinate

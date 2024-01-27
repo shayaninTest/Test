@@ -31,42 +31,50 @@
     transform: translate(-50%, 0);
 }
 
-.kSlider {
+#canvasTop {
+    touch-action: none;
+    border-radius: 18px;
     position: absolute;
     z-index: 3;
     left: 50%;
-    transform: translate(-450px, 0);
+    top: 35px;
+    transform: translate(-50%, 0);
+}
+
+.kSlider {
+    position: absolute;
+    z-index: 4;
+    left: 50%;
+    transform: translate(-344px, 0);
     top: 630px;
     -webkit-user-select: none;
     user-select: none;
+}
+
+.kSlider input[type=range] {
+    width: 100px;
 }
 
 .mSlider {
     position: absolute;
     z-index: 4;
     left: 50%;
-    transform: translate(-450px, 0);
-    top: 660px;
+    transform: translate(-356px, 0);
+    top: 667px;
     -webkit-user-select: none;
     user-select: none;
+}
+
+.mSlider input[type=range] {
+    width: 100px;
 }
 
 .fSlider {
     position: absolute;
-    z-index: 5;
+    z-index: 4;
     left: 50%;
     transform: translate(328px, 0);
-    top: 467px;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-.natFreqBox {
-    position: absolute;
-    z-index: 6;
-    left: 50%;
-    transform: translate(-59px, 0);
-    top: 622px;
+    top: 493px;
     -webkit-user-select: none;
     user-select: none;
 }
@@ -98,7 +106,7 @@ p {
     left: 50%;
     transform: translate(349px, 0);
     top: 408px;
-    z-index: 6;
+    z-index: 4;
     -webkit-user-select: none; 
     -moz-user-select: none; 
     -ms-user-select: none;

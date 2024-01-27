@@ -17,24 +17,19 @@
             <canvas id="canvas" width="1000" height="700" style="background: url('./Illustration/Exports/BG.png')"></canvas>
             <img class='overlay' src="./Illustration/Exports/Overlay.png" alt="" />
             <div class='kSlider'>
-                <i>k</i> = <span id="SpringStiffnessReadout">36</span> N/m
-                <input type="range" id="SpringStiffnessSlider" min="25" max="50" step="1" value="36" oninput="showSpringStiffness();" onchange="showSpringStiffness();">
+                <input type="range" id="SpringStiffnessSlider" min="25" max="50" step="1" value="36">
             </div>
             <div class='mSlider'>
-                <i>m</i> = <span id="MassReadout">2.0</span> kg
-                <input type="range" id="MassSlider" min="1" max="4" step="0.1" value="2.0" oninput="showMass();" onchange="showMass();">
+                <input type="range" id="MassSlider" min="1" max="4" step="0.1" value="2.0">
             </div>
-            <div class='fSlider' style="text-align:center; line-height:160%;">
-                Blow at <span id="WindFrequencyReadout">0.40</span> Hz<br>
-                <input type="range" id="WindFrequencySlider" min="0.2" max="1.2" step="0.01" value="0.40" oninput="showWindFrequency();" onchange="showWindFrequency();">
+            <div class='fSlider'>
+                <input type="range" id="WindFrequencySlider" min="0.2" max="1.2" step="0.01" value="0.40">
             </div>
             <div class="onoffswitch">
                 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="bloweronoffswitch" tabindex="0">
                 <label class="onoffswitch-label" for="bloweronoffswitch"></label>
             </div>
-            <div class="natFreqBox">
-                Natural Frequency
-            </div>
+            <canvas id="canvasTop" width="1000" height="700"></canvas>
         </div>
 
         <div class="Description">
